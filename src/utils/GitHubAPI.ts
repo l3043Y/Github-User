@@ -57,24 +57,41 @@ export interface IGithubUserProfile {
     created_at:          string;
     updated_at:          string;
 }
-export default async function fetchUsers(){
+
+export default async function fetchGithubUser(numberUser: number = 20){
     
+    // Number of user validation
+    if (! (0 < numberUser && numberUser <= 100) ){
+        throw new Error(`${numberUser} is not between 1 and 100`);
+    }
+
     // fetch 20 usernames from github user API 
-    const githubAPIURL = 'https://api.github.com/users?per_page=20'
-    const githubUserList = await axios.get<IGitHubUser[]>(githubAPIURL)
-    const loginList = githubUserList.data.map((user) => {
-        return user.login
-    })
+    const githubAPIURL = `https://api.github.com/users?per_page=${numberUser}`
+    const githubUserList = 
+        await axios.get<IGitHubUser[]>(githubAPIURL)
+        .then((res) => res.data)
+        .catch((err) => {
+            console.log(err)
+            return [] as IGitHubUser[]
+        })
+    const loginList = githubUserList.map((user) => user.login)
 
     // fetch user profile containing number of follower and following
     const githubProfilePromise = loginList.map((login) => {
-        return axios.get<IGithubUserProfile>(`https://api.github.com/users/${login}`)
+        const profilePromise = 
+            axios.get<IGithubUserProfile>(`https://api.github.com/users/${login}`)
             .then((res) => res.data)
+        return profilePromise
     })
-    const githubProfileList = await Promise.all(githubProfilePromise)
+    const githubProfileList: IGithubUserProfile[] = 
+        await Promise.all(githubProfilePromise)
+        .catch((err) => {
+            console.log(err)
+            return [] as IGithubUserProfile[]
+        })
 
     // extract relevent information
-    const users = githubProfileList.map((profile:IGithubUserProfile) =>{
+    const users:IUser[] = githubProfileList.map((profile:IGithubUserProfile) =>{
         const user: IUser = {
             id: profile.id,
             userAvatarUrl: profile.avatar_url,

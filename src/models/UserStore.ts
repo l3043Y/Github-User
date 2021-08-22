@@ -1,4 +1,4 @@
-import { makeAutoObservable, autorun, runInAction, reaction } from "mobx"
+import { makeAutoObservable, runInAction} from "mobx"
 import {IUser} from '../components/User'
 import GitHubAPI from '../services/GitHubAPI'
 import db from './AppDatabase'
@@ -8,7 +8,10 @@ class UserStore {
     dexieUserTable: Dexie.Table<IUser, number>
     userAPI: (numberUser?:number) => Promise<IUser[]>;
     isLoading = true
-    constructor(dexieUserTable: Dexie.Table<IUser, number>,userAPI:(numberUser?:number) => Promise<IUser[]> ) {
+    constructor(
+        dexieUserTable: Dexie.Table<IUser, number>
+        ,userAPI:(numberUser?:number) => Promise<IUser[]> 
+        ) {
         makeAutoObservable(this)
         this.userAPI = userAPI
         this.dexieUserTable = dexieUserTable

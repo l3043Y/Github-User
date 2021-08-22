@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import UserList from './components/UserList';
 import {observer} from 'mobx-react'

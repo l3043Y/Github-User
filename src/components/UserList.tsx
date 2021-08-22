@@ -1,19 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import User, { IUser } from './User';
-import fetchUsers from '../utils/GitHubAPI';
+import store from '../models/UserStore';
+import {toJS} from 'mobx'
+import {observer} from 'mobx-react'
 
-export default function UserList(): React.ReactElement{
+const UserList = observer(() => {
     const [userList, setUserList] = 
         useState<IUser[]>( [] as IUser[] );
 
     useEffect(() => {
-       fetchUsers().then((users:IUser[]) =>{
-           setUserList(users)
-       })
-    },[])
-
+        store.users.then((user) => {
+          console.log('>>Users: ',user)
+          setUserList(user)
+        })
+        console.log('userStore',toJS(store.users))
+        console.log('isLoading',store.isLoading)
+        console.log('isObservable',store)
+    }, [])
+  
+    const styledList:React.CSSProperties = {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly',
+        alignItems: 'center'
+    }
     return (
-        <div>
+        <div style={styledList}>
             {userList.map((user:IUser) => (
                 <User
                     key = {user.id}
@@ -25,4 +37,6 @@ export default function UserList(): React.ReactElement{
             ))}
         </div>
     )
-}
+})
+
+export default UserList

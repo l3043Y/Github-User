@@ -16,8 +16,6 @@ class UserStore {
         makeAutoObservable(this)
         this.userAPI = userAPI
         this.dexieUserTable = dexieUserTable
-        console.log('loadUserFromAPI called in constructor')
-        this.loadUserFromAPI()
     }
 
     static getInstance(){
@@ -28,8 +26,6 @@ class UserStore {
         return this.instance
     }
     loadUserFromAPI() {
-        console.log('loadUserFromAPI called')
-
         this.isLoading = true
         this.userAPI().then((users) => {
             runInAction(() => {

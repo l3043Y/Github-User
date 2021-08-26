@@ -8,7 +8,7 @@ class UserStore {
     private static instance?: UserStore 
     dexieUserTable: Dexie.Table<IUser, number>
     userAPI: (numberUser?:number) => Promise<IUser[]>;
-    isLoading = true
+    isLoading = false
     private constructor(
         dexieUserTable: Dexie.Table<IUser, number>
         ,userAPI:(numberUser?:number) => Promise<IUser[]> 
@@ -39,11 +39,14 @@ class UserStore {
     clearData(){
         runInAction(() => {
             this.dexieUserTable.clear()
-            console.log('clearData()',this.dexieUserTable.toArray())
         })
     }
     get users(){
         return this.dexieUserTable
+    }
+
+    get loadingStatus(){
+        return this.isLoading
     }
 
 }

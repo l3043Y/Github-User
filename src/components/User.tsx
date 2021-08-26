@@ -13,14 +13,6 @@ import SupervisedUserCircleOutlinedIcon from '@material-ui/icons/SupervisedUserC
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        '& > *': {
-          margin: theme.spacing(0.5),
-        },
-    },
     modal: {
       display: 'flex',
       alignItems: 'center',

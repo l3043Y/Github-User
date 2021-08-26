@@ -12,6 +12,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import { inherits } from 'util';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
@@ -24,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
     }, 
     smooth: {
         transition: 'all 0.5s ease'
+    },
+    link: {
+        textDecoration: 'none',
+        color: 'red'
     }
   }),
 );
@@ -55,10 +60,11 @@ const UserList = observer(() => {
                 className={classes.clipContainer}
             >
                 <Typography variant="h1" component="h2">
-                    Github User 
+                    Github User
                 </Typography>
                 <Typography variant="subtitle1">
-                    Fetches 20 Github users from API. Technology: Reactjs, MobX, Dexie 
+                    Fetches 20 Github users from API and store in indexedDB
+                    (<a className={classes.link} href="https://github.com/l3043Y/Github-User">Repo</a>)<br/>Technology: Reactjs, MobX, MaterialUI, Dexie 
                 </Typography>
                     <Grid container justifyContent="center" alignItems="center">
                             {userList.map((user:IUser) => (

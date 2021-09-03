@@ -1,4 +1,4 @@
-import React, { useContext  } from 'react'
+import React, { useContext} from 'react'
 import User, { IUser } from './User';
 
 import {observer} from 'mobx-react'
@@ -11,10 +11,10 @@ import UserContext from '../contexts/UserContext';
 import { useLiveQuery } from 'dexie-react-hooks';
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import { inherits } from 'util';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    
     button: {
       margin: theme.spacing(1),
     },
@@ -49,7 +49,6 @@ const UserList = observer(() => {
         store.loadUserFromAPI()
     }  
     const classes = useStyles();
-   
     return (
         <Grid>
             <Grid 
@@ -59,13 +58,6 @@ const UserList = observer(() => {
                 alignItems="center"
                 className={classes.clipContainer}
             >
-                <Typography variant="h1" component="h2">
-                    Github User
-                </Typography>
-                <Typography variant="subtitle1">
-                    Fetches 20 Github users from API and store in indexedDB
-                    (<a className={classes.link} href="https://github.com/l3043Y/Github-User">Repo</a>)<br/>Technology: Reactjs, MobX, MaterialUI, Dexie 
-                </Typography>
                     <Grid container justifyContent="center" alignItems="center">
                             {userList.map((user:IUser) => (
                                 <User

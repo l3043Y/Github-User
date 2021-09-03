@@ -82,7 +82,7 @@ const User = observer((user: IUser) => {
                 <Fade in={open}>
                     <Paper className={classes.paper}>
                         <div style={styledUser} >
-                            <img style={{width: "150px", borderRadius:'4px'}}
+                            <img style={{width: "250px", borderRadius:'4px'}}
                                 src={user.userAvatarUrl} 
                                 alt={user.userName}
                             />

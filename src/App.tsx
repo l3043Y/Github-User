@@ -1,6 +1,5 @@
 import React, { lazy, Suspense } from 'react';
 import './App.css';
-// import UserList from './components/UserList';
 import {observer} from 'mobx-react'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, Theme,createStyles  } from '@material-ui/core';
@@ -13,7 +12,7 @@ const UserList = lazy(() => {
     return import('./components/UserList')
   }
 
-  return sleep(20000).then((res) => res)
+  return sleep(10000).then((res) => res)
 })
   
 
